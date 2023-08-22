@@ -1,0 +1,24 @@
+Declare
+a number(10):=&a;
+b number(10):=&b;
+c number(10):=&c;
+s number(10);
+begin
+s:=a+b+c;
+dbms_output.put_line('sum of 3 number is'||s);
+end;
+/
+
+
+Enter value for a: 4
+old   2: a number(10):=&a;
+new   2: a number(10):=4;
+Enter value for b: 5
+old   3: b number(10):=&b;
+new   3: b number(10):=5;
+Enter value for c: 6
+old   4: c number(10):=&c;
+new   4: c number(10):=6;
+sum of 3 number is15
+
+PL/SQL procedure successfully completed.

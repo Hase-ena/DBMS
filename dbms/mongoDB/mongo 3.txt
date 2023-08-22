@@ -1,0 +1,12 @@
+db.order.insert({Custid:200,Name:"Manu",Item:"rice",Price:340})
+db.order.insert({Custid:201,Name:"Maya",Item:"rice",Price:340})
+db.order.insert({Custid:202,Name:"Meera",Item:"Sugar",Price:150})
+db.order.insert({Custid:202,Name:"Meera",Item:"Wheat",Price:250})
+db.order.insert({Custid:200,Name:"Maya",Item:"Wheat",Price:250})
+
+
+db.order.update({Custid:20},{$set:{Custid:200}})
+
+
+var mapFunction=function(){emit(this.custid.this.price);};
+var reduceFunction=function(key,values){return

@@ -1,0 +1,159 @@
+                                        
+										NESTED QUERY
+									   --------------
+
+? find sailors who have recieved boat number 103
+SQL> select sname from sailors where sid in(select sid from reserves where bid=103);
+
+SNAME
+---------------
+Dustin
+Lubber
+Horataio
+
+? find names of sailors who havent recieved boat 103
+SQL> select sname from sailors where sid not in(select sid from reserves where bid=103);
+
+SNAME
+---------------
+Brutus
+Andy
+Rusty
+Horataio
+Zorba
+Art
+Bob
+
+7 rows selected.
+
+											ANY AND ALL OPERATOR
+											----------------------
+											
+? find sname sailors whose rating is better than any sailor called Horataio
+select s1.sname,rating from sailors s1 where s1.rating>any(select s2.rating from sailors s2 where s2.sname='Horataio');
+
+
+SNAME               RATING
+--------------- ----------
+Rusty                   10
+Zorba                   10
+Horataio                 9
+Lubber                   8
+Andy                     8
+
+
+? find sname sailors whose rating is better than every sailor called Horataio
+select s1.sname,rating from sailors s1 where s1.rating>all(select s2.rating from sailors s2 where s2.sname='Horataio');
+
+
+SNAME               RATING
+--------------- ----------
+Rusty                   10
+Zorba                   10
+
+									SET OPERATORS(UNION,INTERSECT,EXCEPT OR MINUS)
+									----------------------------------------------
+	
+? find the sid of reserves who have reserved red or green boat
+select distinct sid,color from reserves,boats where color='red' union select distinct bid,color from boats where color='green';
+
+        SID  COLOR
+---------- ---------------
+        22  red
+        31  red
+        64  red
+        74  red
+       103  green
+	   
+	   
+	   
+? find the sid of sailors whop have reserved a red and green boat
+select distinct sid from reserves,boats where reserves.bid=boats.bid=boats.color='red' intersect select distinct sid from reserves,boats where reserves.bid=boats.bid=boats.color='green'
+
+
+? find the sid of sailors who have reserveda red boat but not a green boat
+select distinct sid,color from reserves,boats where color='red' minus select distinct bid,color from boats where color='green';
+
+       SID  COLOR
+---------- ---------------
+        22  red
+        31  red
+        64  red
+        74  red
+
+													ORDER BY 
+													--------
+
+
+? list sailor names in alphabetical order
+SQL> select sname from sailors order by sname;
+
+SNAME
+---------------
+Andy
+Art
+Bob
+Brutus
+Dustin
+Horataio
+Horataio
+Lubber
+Rusty
+Zorba
+
+10 rows selected.
+
+
+
+? list sailor names in de-alphabetical order
+SQL> select sname from sailors order by sname desc;
+
+SNAME
+---------------
+Zorba
+Rusty
+Lubber
+Horataio
+Horataio
+Dustin
+Brutus
+Bob
+Art
+Andy
+
+10 rows selected.
+
+? list sailor names in decreasing order of rating
+select rating from sailors order by rating;
+
+    RATING
+----------
+         1
+         3
+         3
+         7
+         7
+         8
+         8
+         9
+        10
+        10
+
+10 rows selected.
+
+											GROUP BY AND HAVING ROWS
+											------------------------
+											
+? Find the avg ages of sailors for each
+select avg(age) from sailors group by rating;
+
+  AVG(AGE)
+----------
+        33
+      40.5
+        40
+      44.5
+      25.5
+        35
+
+6 rows selected.

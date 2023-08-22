@@ -1,0 +1,261 @@
+//suppose you want to display only name and age
+select sname,age from sailors;
+
+//to make the lines allign together
+set linesize 250;
+
+? display the details of the sailor w sid 31
+
+SQL> select * from sailors where sid=31;
+
+       SID SNAME               RATING        AGE
+---------- --------------- ---------- ----------
+        31 Lubber                   8       55.5
+
+
+
+? get the name of sailors starting with A
+
+select sname from sailors where sname like 'A%';
+
+SNAME
+---------------
+Andy
+Art
+
+? find name start w 'A' and end with letter 'y'
+
+select sname from sailors where sname like 'A%y';
+
+SNAME
+---------------
+Andy
+
+
+? find sailors whose age is greater than 25
+select sname,age from sailors where age>25;
+
+avoid duplication
+select distinct sname from sailors;
+
+SNAME                  AGE
+--------------- ----------
+Dustin                  45
+Brutus                  33
+Lubber                55.5
+Andy                  25.5
+Rusty                   35
+Horataio                35
+Horataio                35
+Art                   25.5
+Bob                   63.5
+
+9 rows selected.
+
+? find the names of sailors whose name ends with letter O
+select sname from sailors where sname like '%o';
+
+SNAME
+---------------
+Horataio
+Horataio
+
+? find the rating of sailors whose age is greater than 35
+select sname,rating from sailors where age>25;
+
+SNAME               RATING
+--------------- ----------
+Dustin                   7
+Brutus                   1
+Lubber                   8
+Andy                     8
+Rusty                   10
+Horataio                 7
+Horataio                 9
+Art                      3
+Bob                      3
+
+9 rows selected.
+
+? display the details of sailors with their rating increased by 2 points
+select sname,rating+2 from sailors;
+
+
+SNAME             RATING+2
+--------------- ----------
+Dustin                   9
+Brutus                   3
+Lubber                  10
+Andy                    10
+Rusty                   12
+Horataio                 9
+Zorba                   12
+Horataio                11
+Art                      5
+Bob                      5
+
+10 rows selected.
+
+
+
+? find sid's of sailors who have reserved red boat
+select distinct bname,color from boats where color='red';
+
+BNAME           COLOR
+--------------- ---------------
+marine          red
+Interlake       red
+
+
+
+
+? find the colour of boats reserved by Lubber
+
+SQL>  select * from sailors,boats where sname='Lubber';
+
+       SID SNAME               RATING        AGE        BID BNAME           COLOR
+---------- --------------- ---------- ---------- ---------- --------------- ---------------
+        31 Lubber                   8       55.5        101 Interlake       blue
+        31 Lubber                   8       55.5        102 Interlake       red
+        31 Lubber                   8       55.5        103 Clipper         green
+        31 Lubber                   8       55.5        104 marine          red
+
+
+
+
+? find the names of sailors who have reserved atleast 1 boat
+SQL> select * from sailors,reserves where sailors.sid=reserves.sid;
+
+       SID SNAME               RATING        AGE        SID        BID DAY
+---------- --------------- ---------- ---------- ---------- ---------- ---------
+        22 Dustin                   7         45         22        101 10-OCT-98
+        22 Dustin                   7         45         22        102 10-OCT-98
+        22 Dustin                   7         45         22        103 08-OCT-98
+        22 Dustin                   7         45         22        104 07-OCT-98
+        31 Lubber                   8       55.5         31        102 10-NOV-98
+        31 Lubber                   8       55.5         31        104 12-NOV-98
+        31 Lubber                   8       55.5         31        103 06-NOV-98
+        64 Horataio                 7         35         64        102 08-SEP-98
+        64 Horataio                 7         35         64        101 05-SEP-98
+        74 Horataio                 9         35         74        103 08-SEP-98
+
+10 rows selected.
+
+
+
+? find sailors who have recieved boat number 103
+
+SQL> select sname from sailors,reserves where sailors.sid=reserves.sid and reserves.bid=103;
+SQL> select sname from sailors where sid in(select sid from reserves where bid=103);
+
+SNAME
+---------------
+Dustin
+Lubber
+Horataio
+
+
+
+SQL> set linesize 200;
+SQL>  select * from sailors,boats;
+
+       SID SNAME               RATING        AGE        BID BNAME           COLOR
+---------- --------------- ---------- ---------- ---------- --------------- ---------------
+        22 Dustin                   7         45        101 Interlake       blue
+        29 Brutus                   1         33        101 Interlake       blue
+        31 Lubber                   8       55.5        101 Interlake       blue
+        32 Andy                     8       25.5        101 Interlake       blue
+        58 Rusty                   10         35        101 Interlake       blue
+        64 Horataio                 7         35        101 Interlake       blue
+        71 Zorba                   10         16        101 Interlake       blue
+        74 Horataio                 9         35        101 Interlake       blue
+        85 Art                      3       25.5        101 Interlake       blue
+        95 Bob                      3       63.5        101 Interlake       blue
+        22 Dustin                   7         45        102 Interlake       red
+
+       SID SNAME               RATING        AGE        BID BNAME           COLOR
+---------- --------------- ---------- ---------- ---------- --------------- ---------------
+        29 Brutus                   1         33        102 Interlake       red
+        31 Lubber                   8       55.5        102 Interlake       red
+        32 Andy                     8       25.5        102 Interlake       red
+        58 Rusty                   10         35        102 Interlake       red
+        64 Horataio                 7         35        102 Interlake       red
+        71 Zorba                   10         16        102 Interlake       red
+        74 Horataio                 9         35        102 Interlake       red
+        85 Art                      3       25.5        102 Interlake       red
+        95 Bob                      3       63.5        102 Interlake       red
+        22 Dustin                   7         45        103 Clipper         green
+        29 Brutus                   1         33        103 Clipper         green
+
+       SID SNAME               RATING        AGE        BID BNAME           COLOR
+---------- --------------- ---------- ---------- ---------- --------------- ---------------
+        31 Lubber                   8       55.5        103 Clipper         green
+        32 Andy                     8       25.5        103 Clipper         green
+        58 Rusty                   10         35        103 Clipper         green
+        64 Horataio                 7         35        103 Clipper         green
+        71 Zorba                   10         16        103 Clipper         green
+        74 Horataio                 9         35        103 Clipper         green
+        85 Art                      3       25.5        103 Clipper         green
+        95 Bob                      3       63.5        103 Clipper         green
+        22 Dustin                   7         45        104 marine          red
+        29 Brutus                   1         33        104 marine          red
+        31 Lubber                   8       55.5        104 marine          red
+
+       SID SNAME               RATING        AGE        BID BNAME           COLOR
+---------- --------------- ---------- ---------- ---------- --------------- ---------------
+        32 Andy                     8       25.5        104 marine          red
+        58 Rusty                   10         35        104 marine          red
+        64 Horataio                 7         35        104 marine          red
+        71 Zorba                   10         16        104 marine          red
+        74 Horataio                 9         35        104 marine          red
+        85 Art                      3       25.5        104 marine          red
+        95 Bob                      3       63.5        104 marine          red
+
+40 rows selected.
+
+
+//update or edit
+update reserves set day='10-nov-98' where sid=31 and bid=102;
+
+delete row
+delete from table_name where field_name=value;//
+
+
+? find the details of sailors who reserved green or red boat
+
+SQL> select sailors.sid from sailors,reserves,boats where sailors.sid=reserves.sid and reserves.bid=
+boats.bid and (boats.color='red' or boats.color='green');
+
+       SID
+----------
+        22
+        31
+        64
+        31
+        22
+        74
+        31
+        22
+
+8 rows selected.
+
+? find sid's of sailors who have not reserved red boat
+
+select distinct bname,color from boats where color!='red';
+
+BNAME           COLOR
+--------------- ---------------
+Interlake       blue
+Clipper         green
+
+? find names of sailors who have reserved blue boat
+select distinct bname,color from boats where color='blue';
+
+BNAME           COLOR
+--------------- ---------------
+Interlake       blue
+
+? find the names of sailors who reserved 2 different boats
+select r1.bid<>r2.bid
+
+?find name and age of sailors

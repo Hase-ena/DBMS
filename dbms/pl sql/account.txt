@@ -1,0 +1,36 @@
+create table account(acno number,name varchar(20),balance number);
+
+insert into account values(&account_no,'&accountholder_name',&balance);
+
+select * from account;
+
+
+create or replace procedure display is
+cursor c is select * from account;
+begin
+for i in c
+loop
+dbms_output.put_line(i.acno||&#39; &;||i.name||&#39; &#39;||i.amount);
+end loop;
+end;
+/
+declare
+ac number;
+am number;
+ch number;
+begin
+ac:=&amp;acno;
+am:=&amp;amount;
+ch:=&amp;ch;
+if ch=1
+then
+deposit(ac,am);
+elsif ch=2
+then
+withdraw(ac,am);
+elsif ch=3
+then
+display();
+end if;
+end;
+/

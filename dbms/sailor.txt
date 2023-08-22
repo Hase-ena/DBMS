@@ -1,0 +1,293 @@
+SQL>create table sailors(sid integer,sname varchar(15),rating integer,age float);
+Table created.
+
+SQL>insert into sailors values(&sid,'&sname',&rating,&age);
+
+Enter value for sid: 22
+Enter value for sname: Dustin
+Enter value for rating: 7
+Enter value for age: 45
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(22,'Dustin',7,45)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 29
+Enter value for sname: Brutus
+Enter value for rating: 1
+Enter value for age: 33
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(29,'Brutus',1,33)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 31
+Enter value for sname: Lubber
+Enter value for rating: 8
+Enter value for age: 55.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(31,'Lubber',8,55.5)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 32
+Enter value for sname: Andy
+Enter value for rating: 8
+Enter value for age: 25.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(32,'Andy',8,25.5)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 58
+Enter value for sname: Rusty
+Enter value for rating: 10
+Enter value for age: 35
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(58,'Rusty',10,35)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 64
+Enter value for sname: Horataio
+Enter value for rating: 7
+Enter value for age: 35
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(64,'Horataio',7,35)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 71
+Enter value for sname: Zorba
+Enter value for rating: 10
+Enter value for age: 16
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(71,'Zorba',10,16)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 74
+Enter value for sname: Horataio
+Enter value for rating: 9
+Enter value for age: 35
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(74,'Horataio',9,35)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 85
+Enter value for sname: Art
+Enter value for rating: 3
+Enter value for age: 25.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(85,'Art',3,25.5)
+
+1 row created.
+
+SQL> /
+Enter value for sid: 95
+Enter value for sname: Bob
+Enter value for rating: 3
+Enter value for age: 63.5
+old   1: insert into sailors values(&sid,'&sname',&rating,&age)
+new   1: insert into sailors values(95,'Bob',3,63.5)
+
+
+SQL> select * from sailors
+  2  ;
+
+       SID SNAME               RATING        AGE
+---------- --------------- ---------- ----------
+        22 Dustin                   7         45
+        29 Brutus                   1         33
+        31 Lubber                   8       55.5
+        32 Andy                     8       25.5
+        58 Rusty                   10         35
+        64 Horataio                 7         35
+        71 Zorba                   10         16
+        74 Horataio                 9         35
+        85 Art                      3       25.5
+        95 Bob                      3       63.5
+
+10 rows selected.
+
+SQL> alter table sailors add primary key(sid);
+
+Table altered.
+			***____________________***
+
+
+SQL> create table boats(bid integer,bname varchar(15),color varchar);
+
+Table created.
+
+SQL> insert into boats values(&bid,'&bname','&color');
+Enter value for bid: 101
+Enter value for bname: Interlake
+Enter value for color: blue
+old   1: insert into boats values(&bid,'&bname','&color')
+new   1: insert into boats values(101,'Interlake','blue')
+
+1 row created.
+
+SQL> /
+Enter value for bid: 102
+Enter value for bname: Interlake
+Enter value for color: red
+old   1: insert into boats values(&bid,'&bname','&color')
+new   1: insert into boats values(102,'Interlake','red')
+
+1 row created.
+
+SQL> /
+Enter value for bid: 103
+Enter value for bname: Clipper
+Enter value for color: green
+old   1: insert into boats values(&bid,'&bname','&color')
+new   1: insert into boats values(103,'Clipper','green')
+
+1 row created.
+
+SQL> /
+Enter value for bid: 104
+Enter value for bname: marine
+Enter value for color: red
+old   1: insert into boats values(&bid,'&bname','&color')
+new   1: insert into boats values(104,'marine','red')
+
+1 row created.
+
+SQL> select * from boats;
+
+       BID BNAME           COLOR
+---------- --------------- ---------------
+       101 Interlake       blue
+       102 Interlake       red
+       103 Clipper         green
+       104 marine          red
+
+
+alter table boats add primary key(bid);
+
+Table altered.
+			***____________________***
+
+SQL> create table reserves(sid references sailors(sid),bid references boats(bid),day date);
+
+Table created.
+
+SQL> insert into reserves values(&sid,&bid,'&day');
+Enter value for sid: 22
+Enter value for bid: 101
+Enter value for day: 10-oct-98
+old   1: insert into reserves values(&sid,&bid,'&day')
+new   1: insert into reserves values(22,101,'10-oct-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 102
+Enter value for day: 10-oct-98
+old   1: insert into reserves values(&sid,&bid,'&day')
+new   1: insert into reserves values(22,102,'10-oct-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 103
+Enter value for day: 08-oct-98
+old   1: insert into reserves values(&sid,&bid,'&day')
+new   1: insert into reserves values(22,103,'08-oct-98')
+
+1 row created.
+SQL> /
+Enter value for sid: 22
+Enter value for bid: 104
+Enter value for day: 07-oct-98
+old   1: insert into reserves values(&sid,&bid,'&day')
+new   1: insert into reserves values(22,104,'07-oct-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 31
+Enter value for bid: 102
+Enter value for day: 10-nov-98
+old   1: insert into reserves values(&sid,&bid,'&day')
+new   1: insert into reserves values(31,102,'10-oct-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 31
+Enter value for bid: 103
+Enter value for day: 06-nov-98
+old   1: insert into reserves values(&sid,&bid,'&day')
+new   1: insert into reserves values(31,103,'06-nov-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 31
+Enter value for bid: 104
+Enter value for day: 12-nov-98
+old   1: insert into reserves values(&sid,&bid,'&day')
+new   1: insert into reserves values(31,104,'12-nov-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 64
+Enter value for bid: 101
+Enter value for day: 05-sep-98
+old   1: insert into reserves values(&sid,&bid,'&day')
+new   1: insert into reserves values(64,101,'05-sep-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 64
+Enter value for bid: 102
+Enter value for day: 08-sep-98
+old   1: insert into reserves values(&sid,&bid,'&day')
+new   1: insert into reserves values(64,102,'08-sep-98')
+
+1 row created.
+
+SQL> /
+Enter value for sid: 74
+Enter value for bid: 103
+Enter value for day: 08-sep-98
+old   1: insert into reserves values(&sid,&bid,'&day')
+new   1: insert into reserves values(74,103,'08-sep-98')
+
+1 row created.
+
+SQL> select * from reserves;
+
+       SID        BID DAY
+---------- ---------- ---------
+        22        101 10-OCT-98
+        22        102 10-OCT-98
+        22        103 08-OCT-98
+        22        104 07-OCT-98
+        31        102 10-NOV-98
+        31        103 06-NOV-98
+        31        104 12-NOV-98
+        64        101 05-SEP-98
+        64        102 08-SEP-98
+        74        103 08-SEP-98
+
+10 rows selected.
+
+

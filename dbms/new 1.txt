@@ -1,0 +1,11 @@
+import java.util.Scanner;
+public class AddMatrix
+{
+public static void main(String args[])
+{
+int row,col,i,j;
+scanner in=new Scanner(System.in);
+{
+int row,col,i,j;
+Sacanner in=new
+

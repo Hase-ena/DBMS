@@ -1,0 +1,82 @@
+CREATE OR REPLACE PROCEDURE MYSTPROC
+IS
+BEGIN
+DBMS_OUTPUT.PUT_LINE('Hello World!');
+END;
+/
+
+
+
+
+CREATE OR REPLACE PROCEDURE P1(A NUMBER) AS
+BEGIN
+DBMS_OUTPUT.PUT_LINE('A:'||A);
+END P1;
+/
+
+Procedure created.
+
+DECLARE
+BEGIN
+P1(100);
+END;
+/
+
+A:100
+
+
+
+CREATE OR REPLACE PROCEDURE P3(A OUT
+NUMBER) AS
+BEGIN
+A:=100;
+DBMS_OUTPUT.PUT_LINE('A:'|| A);
+END P3;
+/
+
+Procedure created.
+
+
+DECLARE
+X NUMBER;
+BEGIN
+X:=50;
+DBMS_OUTPUT.PUT_LINE('X:'|| X);
+P3(X);
+DBMS_OUTPUT.PUT_LINE('X:'|| X);
+END;
+/
+
+X:50
+A:100
+X:100
+
+
+declare
+num1 number;
+num2 number;
+num3 number;
+num1:=1;
+num2:=2;
+num3:=3;
+CREATE PROCEDURE SUM(IN NUM1 INTEGER, IN NUM2 INTEGER,OUT NUM3 INTEGER)
+BEGIN
+set num3=num1+num2;
+end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

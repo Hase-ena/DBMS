@@ -1,0 +1,56 @@
+AGGREGATE FUNCTIONS
+
+? Find the total number of Sailors
+select count(*) from sailors;
+
+  COUNT(*)
+----------
+        10
+Or
+
+select count(*) total_number from sailors;
+
+TOTAL_NUMBER
+------------
+          10
+
+? find the sum of rating of all sailors
+select sum(rating) from sailors;
+
+SUM(RATING)
+-----------
+         66
+
+? find average rating of all sailors
+select avg(rating) from sailors;
+
+AVG(RATING)
+-----------
+        6.6
+
+? find the age of oldest sailor
+select max(age) from sailors;
+
+ MAX(AGE)
+---------
+     63.5
+
+? find the age of youngest sailor
+select min(age) from sailors;
+ 
+ MIN(AGE)
+----------
+        16
+
+? find name of sailor w maximum age
+select sname from sailors where age in (select max(age) from sailors);
+
+SNAME
+---------------
+Bob
+
+
+
+
+
+

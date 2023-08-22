@@ -1,0 +1,116 @@
+SQL>create table students(student_rollno integer,student_name varchar(15),gender varchar(10));
+
+Table created.
+
+SQL> describe students
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_ROLLNO                                     NUMBER(38)
+ STUDENT_NAME                                       VARCHAR2(15)
+ GENDER                                             VARCHAR2(10)
+
+
+/*adding primary key constraints:
+alter table table_name add primary key(field name)*/
+
+SQL> alter table students add primary key(student_name);
+ SQL>Table altered.
+
+/*Changing the size:
+alter table table name modify(field name);
+inserting records into table:
+insert into table_name values(value1,value2.....valuen);
+varchar data must be given in single quotation mark
+displaying contents of a table select * from table name*/
+
+SQL> alter table students modify(gender varchar(20));
+Table altered.
+
+SQL> insert into students values(8,'Haseena','female');
+1 row created.  
+
+SQL> select * from students;
+
+STUDENT_ROLLNO  STUDENT_NAME    GENDER
+-------------- --------------- --------------------
+             8  Haseena         female
+
+
+// alternate method 
+insert into table_name(field1,field2) values(value1,value2);//
+
+insert into students(student_rollno,student_name) values(9, 'Gopz');
+
+1 row created.
+
+SQL> select * from students;
+
+STUDENT_ROLLNO STUDENT_NAME    GENDER
+-------------- --------------- --------------------
+             8 Haseena         female
+             9 Gopz
+
+//another method:
+insert into table_name values(&field1,&field2,......&fieldn);//
+
+
+SQL>insert into students values(&student_rollno,'&student_name','&gender');
+
+Enter value for student_rollno: 7
+Enter value for student_name: Hina
+Enter value for gender: male
+old   1: insert into students values(&student_rollno,'&student_name','&gender')
+new   1: insert into students values(7,'Hina','male')
+
+1 row created.
+
+SQL>  select * from students;
+
+STUDENT_ROLLNO STUDENT_NAME    GENDER
+-------------- --------------- --------------------
+             8 Haseena         female
+             9 Gopz
+             7 Hina            male
+
+SQL> /
+
+STUDENT_ROLLNO STUDENT_NAME    GENDER
+-------------- --------------- --------------------
+             8 Haseena         female
+             9 Gopz
+             7 Hina            male
+
+SQL> insert into students values(&student_rollno,'&student_name','&gender');
+
+Enter value for student_rollno: 6
+Enter value for student_name: Alinah
+Enter value for gender: female
+old   1: insert into students values(&student_rollno,'&student_name','&gender')
+new   1: insert into students values(6,'Alinah','female')
+
+1 row created.
+
+SQL> /
+Enter value for student_rollno: 5
+Enter value for student_name: Rakesh
+Enter value for gender: male
+old   1: insert into students values(&student_rollno,'&student_name','&gender')
+new   1: insert into students values(5,'Rakesh','male')
+
+1 row created.
+
+SQL>  select * from students;
+
+STUDENT_ROLLNO STUDENT_NAME    GENDER
+-------------- --------------- --------------------
+             8 Haseena         female
+             9 Gopz
+             7 Hina            male
+             6 Alinah          female
+             5 Rakesh          male
+
+
+
+
+
+

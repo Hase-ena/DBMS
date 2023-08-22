@@ -1,0 +1,42 @@
+1.Create the table Loans and insert tuples in it.
+
+create table loans(AccN integer primary key,Cust_Name varchar(16),Loan_Amount integer,Instalments integer,Int_Rate float,Start_Date date,Intrest integer);
+insert into Loans values(&AccN,'&Cust_Name',&Loan_Amount,&Instalments,&Int_Rate,'&Start_Date',&Intrest);
+
+
+
+2.Display the details of all the loans.
+select * from loans;
+
+      ACCN CUST_NAME            LOAN_AMOUNT INSTALMENTS   INT_RATE START_DAT   INTEREST
+---------- -------------------- ----------- ----------- ---------- --------- ----------
+         1 R K Gupta                 300000          36         12 19-JUL-09       1200
+         2 S P Sharma                500000          48         10 22-MAR-08       1800
+         3 K P Jain                  300000          36            08-MAR-07       1600
+         4 M P Yadav                 800000          60         10 06-DEC-08       2250
+         5 S P Sinha                 200000          36       12.5 03-JAN-10       4500
+         6 P Sharma                  700000          60       12.5 05-MAY-08       3500
+         7 K S Dhall                 500000          48            05-MAR-08       3800
+
+7 rows selected.
+
+// to see the current date
+select sysdate from dual
+//to update any value
+update loans set Start_Date='19-JUL-2009' where AccN=1;
+
+
+3.Display the AccNo, Cust_Name, and Loan_Amount of all the loans.
+SQL> select AccN,Cust_Name,Loan_Amount from loans;
+
+      ACCN CUST_NAME            LOAN_AMOUNT
+---------- -------------------- -----------
+         1 R K Gupta                 300000
+         2 S P Sharma                500000
+         3 K P Jain                  300000
+         4 M P Yadav                 800000
+         5 S P Sinha                 200000
+         6 P Sharma                  700000
+         7 K S Dhall                 500000
+
+7 rows selected.

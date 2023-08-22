@@ -1,0 +1,125 @@
+//ADD A NEW FIELD DEPT
+
+> db.empDetails.update({name:"Bhuvan"},{$set:{dept:"Designer"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.empDetails.update({name:"Manu"},{$set:{dept:"Programmer"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.empDetails.update({name:"Ram"},{$set:{dept:"Programmer"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.empDetails.update({name:"Raju"},{$set:{dept:"Designer"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.empDetails.insert({name:"Mohan",age:32,email:"Mohan@123.com",salary:40000})
+WriteResult({ "nInserted" : 1 })
+> db.empDetails.update({name:"Mohan"},{$set:{dept:"Tester"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.empDetails.find().pretty()
+{
+        "_id" : ObjectId("64ab84f2565e049c63351822"),
+        "name" : "Bhuvan",
+        "age" : 30,
+        "email" : "bhuvan@123.com",
+        "salary" : 50000,
+        "dept" : "Designer"
+}
+{
+        "_id" : ObjectId("64ab85f508f155f68a957f08"),
+        "name" : "Raju",
+        "age" : 29,
+        "email" : "Raju@123.com",
+        "salary" : 60000,
+        "dept" : "Designer"
+}
+{
+        "_id" : ObjectId("64ab861a08f155f68a957f09"),
+        "name" : "Manu",
+        "age" : 29,
+        "email" : "Manu@123.com",
+        "salary" : 55000,
+        "dept" : "Programmer"
+}
+{
+        "_id" : ObjectId("64ab865a08f155f68a957f0a"),
+        "name" : "Ram",
+        "age" : 31,
+        "email" : "Ram@123.com",
+        "salary" : 45000,
+        "dept" : "Programmer"
+}
+{
+        "_id" : ObjectId("64ab913f08f155f68a957f0b"),
+        "name" : "Mohan",
+        "age" : 32,
+        "email" : "Mohan@123.com",
+        "salary" : 40000,
+        "dept" : "Tester"
+}
+
+1)Find the average salary of each department
+
+> db.empDetails.aggregate([{$group:{_id:"$dept","Avg Salary":{$avg:"$salary"}}}])
+{ "_id" : "Designer", "Avg Salary" : 55000 }
+{ "_id" : "Programmer", "Avg Salary" : 50000 }
+{ "_id" : "Tester", "Avg Salary" : 40000 }
+
+2)Find the minimun salary of each department
+
+> db.empDetails.aggregate([{$group:{_id:"$dept","Minimum Salary":{$min:"$salary"}}}]).pretty()
+{ "_id" : "Programmer", "Minimum Salary" : 45000 }
+{ "_id" : "Tester", "Minimum Salary" : 40000 }
+{ "_id" : "Designer", "Minimum Salary" : 50000 }
+
+3)Find the maximum salary of each department
+
+> db.empDetails.aggregate([{$group:{_id:"$dept","Maximum Salary":{$max:"$salary"}}}]).pretty()
+{ "_id" : "Programmer", "Maximum Salary" : 55000 }
+{ "_id" : "Tester", "Maximum Salary" : 40000 }
+{ "_id" : "Designer", "Maximum Salary" : 60000 }
+
+4)Find the no. of employees of each department
+
+> db.empDetails.aggregate([{$group:{_id:"$dept","Number of Employees":{$sum:1}}}]).pretty()
+{ "_id" : "Designer", "Number of Employees" : 2 }
+{ "_id" : "Programmer", "Number of Employees" : 2 }
+{ "_id" : "Tester", "Number of Employees" : 1 }
+
+5)Sort the collection EmpDetails in descending and ascending order of name
+
+> db.empDetails.find().sort({name:-1})
+{ "_id" : ObjectId("64ab865a08f155f68a957f0a"), "name" : "Ram", "age" : 31, "email" : "Ram@123.com", "salary" : 45000, "dept" : "Programmer" }
+{ "_id" : ObjectId("64ab85f508f155f68a957f08"), "name" : "Raju", "age" : 29, "email" : "Raju@123.com", "salary" : 60000, "dept" : "Designer" }
+{ "_id" : ObjectId("64ab913f08f155f68a957f0b"), "name" : "Mohan", "age" : 32, "email" : "Mohan@123.com", "salary" : 40000, "dept" : "Tester" }
+{ "_id" : ObjectId("64ab861a08f155f68a957f09"), "name" : "Manu", "age" : 29, "email" : "Manu@123.com", "salary" : 55000, "dept" : "Programmer" }
+{ "_id" : ObjectId("64ab84f2565e049c63351822"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@123.com", "salary" : 50000, "dept" : "Designer" }
+> db.empDetails.find().sort({name:1})
+{ "_id" : ObjectId("64ab84f2565e049c63351822"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@123.com", "salary" : 50000, "dept" : "Designer" }
+{ "_id" : ObjectId("64ab861a08f155f68a957f09"), "name" : "Manu", "age" : 29, "email" : "Manu@123.com", "salary" : 55000, "dept" : "Programmer" }
+{ "_id" : ObjectId("64ab913f08f155f68a957f0b"), "name" : "Mohan", "age" : 32, "email" : "Mohan@123.com", "salary" : 40000, "dept" : "Tester" }
+{ "_id" : ObjectId("64ab85f508f155f68a957f08"), "name" : "Raju", "age" : 29, "email" : "Raju@123.com", "salary" : 60000, "dept" : "Designer" }
+{ "_id" : ObjectId("64ab865a08f155f68a957f0a"), "name" : "Ram", "age" : 31, "email" : "Ram@123.com", "salary" : 45000, "dept" : "Programmer" }
+
+6)Create a text index for "name" and search for names Mohan and Bhuvan
+
+> db.empDetails.createIndex({name:"text"})
+{
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "createdCollectionAutomatically" : false,
+        "ok" : 1
+}
+>db.empDetails.find({$text:{$search:"Mohan Bhuvan"}}).pretty()
+{
+        "_id" : ObjectId("64ab84f2565e049c63351822"),
+        "name" : "Bhuvan",
+        "age" : 30,
+        "email" : "bhuvan@123.com",
+        "salary" : 50000,
+        "dept" : "Designer"
+}
+{
+        "_id" : ObjectId("64ab913f08f155f68a957f0b"),
+        "name" : "Mohan",
+        "age" : 32,
+        "email" : "Mohan@123.com",
+        "salary" : 40000,
+        "dept" : "Tester"
+}

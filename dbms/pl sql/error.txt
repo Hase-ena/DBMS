@@ -1,0 +1,21 @@
+declare
+ac number;
+am number;
+ch number;
+begin
+ac:=&acno;
+am:=&amount;
+ch:=&ch;
+if ch=1
+	then
+deposit(ac,am);
+
+elsif ch=2
+then
+withdraw(ac,am);
+elsif ch=3
+then
+dbms_output.put_line('sum of 3 number is');
+end if;
+end;
+/

@@ -1,0 +1,71 @@
+create table professor(pnum integer,pname varchar(10),psalary number);
+
+CREATE OR REPLACE TRIGGER minSalary BEFORE
+INSERT ON Professor
+FOR EACH ROW
+BEGIN
+IF (:new.psalary < 60000)
+THEN RAISE_APPLICATION_ERROR
+(-20004,'Violation of Minimum Professor Salary');
+END IF;
+END;
+/
+
+ insert into professor values(&pnum,'&pname',&psalary);
+
+
+CREATE OR REPLACE TRIGGER deL BEFORE DELETE ON Professor
+FOR EACH ROW
+BEGIN
+RAISE_APPLICATION_ERROR(-20004,'deletion not possible');
+END;
+/
+
+
+create table studentbacklog as select * from student1;
+
+
+create or replace TRIGGER dl AFTER DELETE ON student1
+FOR EACH ROW
+BEGIN
+INSERT INTO student1_backlog values(:old.id,:old.name,:old.gender);
+end;
+/
+
+create table student2(id integer primary key,name varchar(20),gender varchar(6));
+
+Table created.
+
+create table students_backlog as select * from student2;
+
+Table created.
+
+create or replace TRIGGER dls AFTER DELETE ON student2
+FOR EACH ROW
+
+BEGIN
+INSERT INTO STUDENTS_backlog values(:old.id,:old.name,:old.gender);
+end;
+/
+
+
+
+create or replace trigger name after insert on student1 for each row begin update gender count 
+if(:new.gender='male')
+then 
+update gender count m count=mcount+1
+elseif
+
+
+create or replace trigger cnt after insert on  student
+for each row
+begin
+IF (:new.gender='male') then
+UPDATE gender_count SET  mcount=mcount+1;
+END IF;
+IF (:new.gender='female') then
+UPDATE gender_count SET  fcount=fcount+1;
+END IF;
+end;
+/
+

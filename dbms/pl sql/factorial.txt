@@ -1,0 +1,19 @@
+declare
+fact number:=1;
+n number(9):=&n;
+begin
+while n>0 loop
+fact:=n*fact;
+n:=n-1;
+end loop;
+dbms_output.put_line('factorial of number is '||fact);
+end;
+/
+
+
+Enter value for n: 4
+old   3: n number(9):=&n;
+new   3: n number(9):=4;
+factorial of number is 24
+
+PL/SQL procedure successfully completed.
